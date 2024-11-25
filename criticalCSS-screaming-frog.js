@@ -54,10 +54,8 @@ function collectCriticalCSS() {
                         }
                     });
                 } else if (rule instanceof CSSFontFaceRule) {
-                    // Always include @font-face rules
                     addCSSRule(rule);
                 } else if (rule instanceof CSSMediaRule) {
-                    // Process media rules
                     processMediaRule(rule);
                 }
             });
@@ -119,8 +117,9 @@ function collectCriticalCSS() {
         )
         .join("");
 
-    return minifiedCSS;
+    // Wrap the Critical CSS inside a <style> tag
+    return `<style>${minifiedCSS}</style>`;
 }
 
-// Return the minified Critical CSS with media queries using seoSpider.data
+// Return the minified Critical CSS wrapped in a <style> tag using seoSpider.data
 return seoSpider.data(collectCriticalCSS());
